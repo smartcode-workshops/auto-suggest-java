@@ -39,39 +39,6 @@ public class Trie {
         return null;
     }
 
-    // 从前缀树中删除一个单词
-    public boolean delete(String word) {
-        return _delete(root, word, 0);
-    }
-
-    // 生成 Helper 方法 _delete 使用递归的方式将一个单词的所有结点从 trie 中逐个删除
-    private boolean _delete(TrieNode node, String word, int index) {
-        // 如果当前节点是一个单词的结尾，就将这个节点标记为非单词结尾
-        if (index == word.length()) {
-            if (!node.isEndOfWord) {
-                return false;
-            }
-            node.isEndOfWord = false;
-            // 如果当前节点没有子节点，就可以将这个节点从前缀树中删除
-            return node.children.isEmpty();
-        }
-        // 如果当前节点不是一个单词的结尾，就继续遍历前缀树
-        char c = word.charAt(index);
-        TrieNode child = node.children.get(c);
-        if (child == null) {
-            return false;
-        }
-        // 如果当前节点的子节点中有要删除的字符，就继续遍历
-        boolean shouldDeleteCurrentNode = _delete(child, word, index + 1);
-        // 如果 shouldDeleteCurrentNode 为 true，就将当前节点从前缀树中删除
-        if (shouldDeleteCurrentNode) {
-            node.children.remove(c);
-            // 如果当前节点是一个单词的结尾，就返回 false，表示不能删除当前节点
-            return !node.isEndOfWord && node.children.isEmpty();
-        }
-        return false;
-    }
-
     public List<String> getAllWords() {
         return getAllWordsWithPrefix(root, "");
     }
