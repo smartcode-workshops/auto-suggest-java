@@ -24,6 +24,17 @@ public class Trie {
         return true;
     }
 
+    public boolean search(String word) {
+        TrieNode current = root;
+        for (char c : word.toCharArray()) {
+            if (!current.hasChild(c)) {
+                return false;
+            }
+            current = current.children.get(c);
+        }
+        return current.isEndOfWord;
+    }
+
     public List<String> autoSuggest(String prefix) {
         TrieNode currentNode = root;
         for (char c : prefix.toCharArray()) {
@@ -36,7 +47,20 @@ public class Trie {
     }
 
     public List<String> getAllWordsWithPrefix(TrieNode node, String prefix) {
-        return null;
+        List<String> words = new ArrayList<>();
+        if (node == null) {
+            return words;
+        }
+
+        if (node.isEndOfWord) {
+            words.add(prefix);
+        }
+
+        for (Map.Entry<Character, TrieNode> entry : node.children.entrySet()) {
+            words.addAll(getAllWordsWithPrefix(entry.getValue(), prefix + entry.getKey()));
+        }
+
+        return words;
     }
 
     public List<String> getAllWords() {
