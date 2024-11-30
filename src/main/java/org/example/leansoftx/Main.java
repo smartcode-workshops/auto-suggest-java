@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         dictionary.printTrieStructure();
-        //searchWord();
+        searchWord();
         //prefixAutoComplete();
         //deleteWord();
         //getSpellingSuggestions();
@@ -44,12 +44,9 @@ public class Main {
             if (input.isEmpty()) {
                 break;
             }
-            /*
             if (dictionary.search(input)) {
                 System.out.println("Found \"" + input + "\" in dictionary");
-            }
-            */
-            else {
+            } else {
                 System.out.println("Did not find \"" + input + "\" in dictionary");
             }
         }
