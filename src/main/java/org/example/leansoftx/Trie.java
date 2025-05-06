@@ -113,7 +113,7 @@ public class Trie {
     public static int levenshteinDistance(String s, String t) {
         int m = s.length();
         int n = t.length();
-        int[][] d = new int[m][n];
+        int[][] d = new int[m + 1][n + 1];
 
         if (m == 0) {
             return n;
@@ -134,7 +134,7 @@ public class Trie {
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 int cost = (s.charAt(i - 1) == t.charAt(j - 1)) ? 0 : 1;
-                d[i][j] = Math.min(Math.min(d[i][j] + 1, d[i][j] + 1), d[i][j] + cost);
+                d[i][j] = Math.min(Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1), d[i - 1][j - 1] + cost);
             }
         }
 
